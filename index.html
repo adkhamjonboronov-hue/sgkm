@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ШГКМ Тарихи Музейи — Меҳнат Фаоллари</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #060c1c;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.1) 0%, transparent 45%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            background-attachment: fixed;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+        }
+        .header-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(14, 165, 233, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 24px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+        .header-title h1 {
+            font-size: 21px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .header-title p {
+            font-size: 12px;
+            color: #38bdf8;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .lang-switch {
+            display: flex;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 8px;
+            padding: 3px;
+            gap: 2px;
+        }
+        .lang-btn {
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.4);
+        }
+        .search-input {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            width: 200px;
+            transition: 0.3s;
+        }
+        .search-input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+        .btn-print {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 15px rgba(2, 132, 199, 0.3);
+        }
+        .btn-print:hover {
+            background: #0369a1;
+        }
+        main {
+            max-width: 1300px;
+            margin: 28px auto;
+            padding: 0 16px;
+            flex: 1;
+            width: 100%;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            margin-bottom: 28px;
+        }
+        .tab-btn {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            color: #94a3b8;
+            border: 1px solid rgba(51, 65, 85, 0.7);
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: #0284c7;
+            color: white;
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(2, 132, 199, 0.4);
+        }
+        .section-block {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(14, 165, 233, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Museum wall panel background texture inside sections */
+        .section-block::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.8);
+            padding-bottom: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        .section-header-bar {
+            width: 6px;
+            height: 24px;
+            background: linear-gradient(to bottom, #38bdf8, #0284c7);
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(51, 65, 85, 0.7);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transition: 0.3s;
+        }
+        .card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.3);
+            background: rgba(30, 41, 59, 0.85);
+        }
+        .photo-box {
+            width: 130px;
+            height: 165px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px dashed rgba(71, 85, 105, 0.8);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .card:hover .photo-box {
+            border-color: #38bdf8;
+        }
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .svg-avatar {
+            width: 48px;
+            height: 48px;
+            fill: #64748b;
+        }
+        .upload-text {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .member-name {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+        .member-years {
+            font-size: 11px;
+            color: #38bdf8;
+            background: rgba(2, 132, 199, 0.15);
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            font-weight: 600;
+        }
+        footer {
+            background: rgba(15, 23, 42, 0.85);
+            border-top: 1px solid rgba(56, 189, 248, 0.15);
+            text-align: center;
+            padding: 18px;
+            font-size: 12px;
+            color: #64748b;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .section-block { background: white !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+            .card { background: #fff !important; border: 1px solid #ccc !important; }
+            .member-name { color: #000 !important; }
+            .member-years { color: #333 !important; background: #eee !important; border-color: #bbb !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-box">
+                <div class="logo-icon">🏛️</div>
+                <div class="header-title">
+                    <h1 id="headerTitle">ШЎРТАН ГАЗ-КИМЁ МАЖМУАСИ</h1>
+                    <p id="headerSubtitle">Тарихи музейи — «Меҳнат фаоллари» бўлими</p>
+                </div>
+            </div>
+            <div class="controls no-print">
+                <!-- 3 Languages Switcher -->
+                <div class="lang-switch">
+                    <button onclick="switchLanguage('uz')" id="btn-uz" class="lang-btn active">O'zb</button>
+                    <button onclick="switchLanguage('ru')" id="btn-ru" class="lang-btn">Рус</button>
+                    <button onclick="switchLanguage('en')" id="btn-en" class="lang-btn">Eng</button>
+                </div>
+                <input type="text" id="searchInput" class="search-input" placeholder="Исм бўйича қидириш...">
+                <button onclick="window.print()" id="btnPrint" class="btn-print">🖨️ Чоп этиш</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="filter-tabs no-print" id="filterTabs"></div>
+        <div id="sectionsContainer"></div>
+    </main>
+
+    <footer class="no-print">
+        <p id="footerText">© Шўртан газ-кимё мажмуаси МЧЖ. Барча ҳуқуқлар ҳимояланган.</p>
+    </footer>
+
+    <script>
+        let currentLang = 'uz';
+        let activeCategory = 'all';
+
+        const i18n = {
+            uz: {
+                headerTitle: "ШЎРТАН ГАЗ-КИМЁ МАЖМУАСИ",
+                headerSubtitle: "Тарихи музейи — «Меҳнат фаоллари» бўлими",
+                searchPlaceholder: "Исм бўйича қидириш...",
+                btnPrint: "🖨️ Чоп этиш",
+                uploadText: "Расм юклаш",
+                footerText: "© Шўртан газ-кимё мажмуаси МЧЖ. Барча ҳуқуқлар ҳимояланган.",
+                tabs: {
+                    all: "Ҳаммаси",
+                    "1": "1. Раҳбарлар",
+                    "2": "2. Бош муҳандислар",
+                    "3": "3. Ишлаб чиқариш",
+                    "4": "4. Иқтисод",
+                    "5": "5. Умумий масалалар",
+                    "6": "6. Қурилиш",
+                    "7": "7. Тижорат"
+                },
+                sections: {
+                    "1": "1. ШГКМ раҳбарлари",
+                    "2": "2. ШГКМ бош муҳандислари",
+                    "3": "3. Ишлаб чиқариш бўйича ўринбосарлар",
+                    "4": "4. Иқтисод масалалари бўйича ўринбосарлар",
+                    "5": "5. Умумий масалалар бўйича ўринбосарлар",
+                    "6": "6. Қурилиш бўйича ўринбосарлар",
+                    "7": "7. Тижорат бўйича ўринбосарлар"
+                }
+            },
+            ru: {
+                headerTitle: "ШУРТАНСКИЙ ГАЗОХИМИЧЕСКИЙ КОМПЛЕКС",
+                headerSubtitle: "Музей истории — Отдел «Передовики труда»",
+                searchPlaceholder: "Поиск по имени...",
+                btnPrint: "🖨️ Печать",
+                uploadText: "Загрузить фото",
+                footerText: "© ООО «Шуртанский газохимический комплекс». Все права защищены.",
+                tabs: {
+                    all: "Все",
+                    "1": "1. Руководители",
+                    "2": "2. Главные инженеры",
+                    "3": "3. По производству",
+                    "4": "4. По экономике",
+                    "5": "5. Общие вопросы",
+                    "6": "6. По строительству",
+                    "7": "7. По коммерции"
+                },
+                sections: {
+                    "1": "1. Руководители ШГХК",
+                    "2": "2. Главные инженеры ШГХК",
+                    "3": "3. Заместители директора по производству",
+                    "4": "4. Заместители директора по экономике",
+                    "5": "5. Заместители директора по общим вопросам",
+                    "6": "6. Заместители директора по строительству",
+                    "7": "7. Заместители директора по коммерции"
+                }
+            },
+            en: {
+                headerTitle: "SHURTAN GAS CHEMICAL COMPLEX",
+                headerSubtitle: "History Museum — 'Labor Veterans & Leaders' Section",
+                searchPlaceholder: "Search by name...",
+                btnPrint: "🖨️ Print",
+                uploadText: "Upload Photo",
+                footerText: "© Shurtan Gas Chemical Complex LLC. All rights reserved.",
+                tabs: {
+                    all: "All",
+                    "1": "1. Directors",
+                    "2": "2. Chief Engineers",
+                    "3": "3. Production",
+                    "4": "4. Economy",
+                    "5": "5. General Issues",
+                    "6": "6. Construction",
+                    "7": "7. Commercial"
+                },
+                sections: {
+                    "1": "1. Directors of SGCC",
+                    "2": "2. Chief Engineers of SGCC",
+                    "3": "3. Deputy Directors for Production",
+                    "4": "4. Deputy Directors for Economic Affairs",
+                    "5": "5. Deputy Directors for General Issues",
+                    "6": "6. Deputy Directors for Construction",
+                    "7": "7. Deputy Directors for Commercial Affairs"
+                }
+            }
+        };
+
+        const museumData = [
+            {
+                id: "1",
+                members: [
+                    { name: { uz: "Ўткир Хусенов", ru: "Уткир Хусенов", en: "Utkir Khusenov" }, years: { uz: "shgkm bosh derektori", ru: "Период руководства", en: "Leadership Period" } },
+                    { name: { uz: "Алимов Бахтиёр Жунаидович", ru: "Алимов Бахтиёр Джунаидович", en: "Alimov Bakhtiyor Junaidovich" }, years: { uz: "Раҳбарлик даври", ru: "Период руководства", en: "Leadership Period" } },
+                    { name: { uz: "Алиев Ҳабибулло Маматвалиевич", ru: "Алиев Хабибулло Маматвалиевич", en: "Aliyev Khabibullo Mamatvaliyevich" }, years: { uz: "Раҳбарлик даври", ru: "Период руководства", en: "Leadership Period" } },
+                    { name: { uz: "Султанов Алишер Саидаббасович", ru: "Султанов Алишер Саидаббасович", en: "Sultanov Alisher Saidabbasovich" }, years: { uz: "Раҳбарлик даври", ru: "Период руководства", en: "Leadership Period" } },
+                    { name: { uz: "Темиров Одил Шукурович", ru: "Темиров Одил Шукурович", en: "Temirov Odil Shukurovich" }, years: { uz: "Раҳбарлик даври", ru: "Период руководства", en: "Leadership Period" } },
+                    { name: { uz: "Асланов Шуҳрат Чориевич", ru: "Асланов Шухрат Чориевич", en: "Aslanov Shukhrat Choriyevich" }, years: { uz: "Раҳбарлик даври", ru: "Период руководства", en: "Leadership Period" } }
+                ]
+            },
+            {
+                id: "2",
+                members: [
+                    { name: { uz: "Эшмурадов Ўктам Асадуллаевич", ru: "Эшмурадов Уктам Асадуллаевич", en: "Eshmuradov Uktam Asadullayevich" }, years: { uz: "2000-2004 йиллар", ru: "2000-2004 годы", en: "2000-2004" } },
+                    { name: { uz: "Жўраев Тўлаган Тошпўлатович", ru: "Джураев Тулаган Ташпулатович", en: "Jurayev Tulagan Tashpulatovich" }, years: { uz: "2004-2010 йиллар", ru: "2004-2010 годы", en: "2004-2010" } },
+                    { name: { uz: "Мансуров Баҳром Маматмуродович", ru: "Мансуров Бахром Маматмуродович", en: "Mansurov Bahrom Mamatmurodovich" }, years: { uz: "2010-2016 йиллар", ru: "2010-2016 годы", en: "2010-2016" } },
+                    { name: { uz: "Эшмуродов Шокир Мусурмонович", ru: "Эшмуродов Шокир Мусурмонович", en: "Eshmurodov Shokir Musurmonovich" }, years: { uz: "2017 йилдан ҳозиргача", ru: "2017 - по н.в.", en: "2017 - present" } }
+                ]
+            },
+            {
+                id: "3",
+                members: [
+                    { name: { uz: "Жўраев Тўлаган Тошпўлатович", ru: "Джураев Тулаган Ташпулатович", en: "Jurayev Tulagan Tashpulatovich" }, years: { uz: "2001-2004 йиллар", ru: "2001-2004 годы", en: "2001-2004" } },
+                    { name: { uz: "Эшмуродов Шокир Мусурмонович", ru: "Эшмуродов Шокир Мусурмонович", en: "Eshmurodov Shokir Musurmonovich" }, years: { uz: "2004-2017 йиллар", ru: "2004-2017 годы", en: "2004-2017" } },
+                    { name: { uz: "Асланов Шуҳрат Чориевич", ru: "Асланов Шухрат Чориевич", en: "Aslanov Shukhrat Choriyevich" }, years: { uz: "2017-2018 йиллар", ru: "2017-2018 годы", en: "2017-2018" } },
+                    { name: { uz: "Исаев Ўктам Жалилович", ru: "Исаев Уктам Жалилович", en: "Isayev Uktam Jalilovich" }, years: { uz: "2018 йилдан ҳозиргача", ru: "2018 - по н.в.", en: "2018 - present" } }
+                ]
+            },
+            {
+                id: "4",
+                members: [
+                    { name: { uz: "Қодиров Эркин Тошпулатович", ru: "Кадиров Эркин Ташпулатович", en: "Kodirov Erkin Tashpulatovich" }, years: { uz: "2000-2008 йиллар", ru: "2000-2008 годы", en: "2000-2008" } },
+                    { name: { uz: "Пардаев Абдурашид Ахматович", ru: "Пардаев Абдурашид Ахматович", en: "Pardayev Abdurashid Akhmatovich" }, years: { uz: "2008-2012 йиллар", ru: "2008-2012 годы", en: "2008-2012" } },
+                    { name: { uz: "Хафалов Маҳкам", ru: "Хафалов Махкам", en: "Khafalov Mahkam" }, years: { uz: "2012-2014 йиллар", ru: "2012-2014 годы", en: "2012-2014" } },
+                    { name: { uz: "Мавлонов Акрам Эргашевич", ru: "Мавлонов Акрам Эргашевич", en: "Mavlonov Akram Ergashevich" }, years: { uz: "2015-2018 йиллар", ru: "2015-2018 годы", en: "2015-2018" } },
+                    { name: { uz: "Турдиев Аҳмад Бердишукурович", ru: "Турдиев Ахмад Бердишукурович", en: "Turdiyev Ahmad Berdishukurovich" }, years: { uz: "2018-2019 йиллар", ru: "2018-2019 годы", en: "2018-2019" } },
+                    { name: { uz: "Мавлонов Акрам Эргашевич", ru: "Мавлонов Акрам Эргашевич", en: "Mavlonov Akram Ergashevich" }, years: { uz: "2019-2021 йиллар", ru: "2019-2021 годы", en: "2019-2021" } },
+                    { name: { uz: "Халимов Жасур Комилович", ru: "Халимов Жасур Комилович", en: "Khalimov Jasur Komilovich" }, years: { uz: "2021 йилдан ҳозиргача", ru: "2021 - по н.в.", en: "2021 - present" } }
+                ]
+            },
+            {
+                id: "5",
+                members: [
+                    { name: { uz: "Гойипов Рустам Рузметович", ru: "Гоипов Рустам Рузметович", en: "Goyipov Rustam Ruzmetovich" }, years: { uz: "2000-2004 йиллар", ru: "2000-2004 годы", en: "2000-2004" } },
+                    { name: { uz: "Даминов Диёр Ҳайдарович", ru: "Даминов Диёр Хайдарович", en: "Daminov Diyor Haydarovich" }, years: { uz: "2004-2007 йиллар", ru: "2004-2007 годы", en: "2004-2007" } },
+                    { name: { uz: "Куватов Фахриддин Эшкабулович", ru: "Куватов Фахриддин Эшкабулович", en: "Kuvatov Fakhriddin Eshkabulovich" }, years: { uz: "2007 йилдан ҳозиргача", ru: "2007 - по н.в.", en: "2007 - present" } }
+                ]
+            },
+            {
+                id: "6",
+                members: [
+                    { name: { uz: "Султонов Жононбой", ru: "Султонов Жононбой", en: "Sultonov Jononboy" }, years: { uz: "Фаолият йиллари", ru: "Годы деятельности", en: "Years of service" } },
+                    { name: { uz: "Джалилов Абдуқаххор", ru: "Джалилов Абдукаххор", en: "Jalilov Abdukakhkhor" }, years: { uz: "Фаолият йиллари", ru: "Годы деятельности", en: "Years of service" } },
+                    { name: { uz: "Муродов Бобир", ru: "Муродов Бобир", en: "Murodov Bobir" }, years: { uz: "Фаолият йиллари", ru: "Годы деятельности", en: "Years of service" } },
+                    { name: { uz: "Ибадуллаевич Ғайрат Каримович", ru: "Ибадуллаевич Гайрат Каримович", en: "Ibadullayevich Gayrat Karimovich" }, years: { uz: "Ҳозиргача", ru: "По настоящее время", en: "To present" } }
+                ]
+            },
+            {
+                id: "7",
+                members: [
+                    { name: { uz: "Алишер ака", ru: "Алишер ака", en: "Alisher aka" }, years: { uz: "Фаолият йиллари", ru: "Годы деятельности", en: "Years of service" } },
+                    { name: { uz: "Жабборов Шокир Давлатович", ru: "Жабборов Шокир Давлатович", en: "Jabborov Shokir Davlatovich" }, years: { uz: "Фаолият йиллари", ru: "Годы деятельности", en: "Years of service" } },
+                    { name: { uz: "Очилов Асқар Мухаммадиевич", ru: "Очилов Аскар Мухаммадиевич", en: "Ochilov Askar Mukhammadievich" }, years: { uz: "2025 йилдан ҳозиргача", ru: "2025 - по н.в.", en: "2025 - present" } }
+                ]
+            }
+        ];
+
+        const defaultAvatarSvg = `<svg class="svg-avatar" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+
+        function renderHeaderAndTabs() {
+            const langData = i18n[currentLang];
+            document.getElementById('headerTitle').innerText = langData.headerTitle;
+            document.getElementById('headerSubtitle').innerText = langData.headerSubtitle;
+            document.getElementById('searchInput').placeholder = langData.searchPlaceholder;
+            document.getElementById('btnPrint').innerText = langData.btnPrint;
+            document.getElementById('footerText').innerText = langData.footerText;
+
+            const tabsContainer = document.getElementById('filterTabs');
+            tabsContainer.innerHTML = '';
+            
+            Object.keys(langData.tabs).forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${key === activeCategory ? 'active' : ''}`;
+                btn.innerText = langData.tabs[key];
+                btn.onclick = (e) => filterCategory(key, btn);
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderSections(searchFilter = '') {
+            const container = document.getElementById('sectionsContainer');
+            container.innerHTML = '';
+            const langData = i18n[currentLang];
+
+            museumData.forEach(section => {
+                if (activeCategory !== 'all' && section.id !== activeCategory) return;
+
+                const filteredMembers = section.members.filter(m => {
+                    const name = m.name[currentLang] || m.name.uz;
+                    return name.toLowerCase().includes(searchFilter.toLowerCase());
+                });
+
+                if (filteredMembers.length === 0) return;
+
+                const sectionEl = document.createElement('div');
+                sectionEl.className = 'section-block';
+                
+                let cardsHTML = '';
+                filteredMembers.forEach((member, idx) => {
+                    const cardId = `img-${section.id}-${idx}`;
+                    const name = member.name[currentLang] || member.name.uz;
+                    const years = member.years[currentLang] || member.years.uz;
+
+                    cardsHTML += `
+                        <div class="card">
+                            <div class="photo-box">
+                                <img id="${cardId}" style="display:none;" alt="${name}">
+                                <div id="holder-${cardId}" style="display:flex; flex-direction:column; align-items:center;">
+                                    ${defaultAvatarSvg}
+                                    <span class="upload-text">${langData.uploadText}</span>
+                                </div>
+                                <input type="file" accept="image/*" onchange="handleImageUpload(event, '${cardId}')" class="file-input" title="Расм танлаш учун босинг">
+                            </div>
+                            <div class="member-name">${name}</div>
+                            <div class="member-years">${years}</div>
+                        </div>
+                    `;
+                });
+
+                sectionEl.innerHTML = `
+                    <div class="section-header">
+                        <div class="section-header-bar"></div>
+                        <h3 class="section-title">${langData.sections[section.id]}</h3>
+                    </div>
+                    <div class="cards-grid">
+                        ${cardsHTML}
+                    </div>
+                `;
+
+                container.appendChild(sectionEl);
+            });
+        }
+
+        function handleImageUpload(event, targetImgId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgEl = document.getElementById(targetImgId);
+                    const holderEl = document.getElementById(`holder-${targetImgId}`);
+                    imgEl.src = e.target.result;
+                    imgEl.style.display = 'block';
+                    if (holderEl) holderEl.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function filterCategory(catId, btnEl) {
+            activeCategory = catId;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+            
+            const searchVal = document.getElementById('searchInput').value;
+            renderSections(searchVal);
+        }
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${lang}`).classList.add('active');
+            
+            renderHeaderAndTabs();
+            renderSections(document.getElementById('searchInput').value);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderSections(e.target.value);
+        });
+
+        renderHeaderAndTabs();
+        renderSections();
+    </script>
+</body>
+</html>
